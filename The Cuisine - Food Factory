@@ -1,10 +1,3 @@
-Julia is the owner of Dine Out, a leading franchise restaurant. The restaurant serves Chinese, Italian, Japanese, and Mexican cuisines only. Create the FoodFactory and other required classes to demonstrate the serving process. The class should implement the following methods: 
-1. Food Factory getFactory to return the instance of the Food Factory class. 
-2. void registerCuisine(String cuisineKey, Cuisine cuisine) to register the cuisine so that the food factory would be able to serve it. Here Cuisine is the abstract class provided in the locked stub code. 
-3. Cuisine serveCuisine(String cuisineKey, String dish) to serve a dish for the given cuisine. If the requested cuisine is not registered with the food factory, then the exception UnservableCuisineRequestException should be thrown with the message "Unservable cuisine {cuisineKey) for dish {dish)". The implementation of UnservableCuisineRequestException class is provided in the locked stub code. 
-The implementation of UnservableCuisineRequestException class is provided in the locked stub code. The locked stub code in the editor validates the correctness of the FoodFactory class.
-
-//Code: 
 import java.util.Scanner;
 abstract class Cuisine {
     public abstract Cuisine serveFood(String dish);
