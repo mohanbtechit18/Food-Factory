@@ -1,0 +1,145 @@
+Julia is the owner of Dine Out, a leading franchise restaurant. The restaurant serves Chinese, Italian, Japanese, and Mexican cuisines only. Create the FoodFactory and other required classes to demonstrate the serving process. The class should implement the following methods: 
+1. Food Factory getFactory to return the instance of the Food Factory class. 
+2. void registerCuisine(String cuisineKey, Cuisine cuisine) to register the cuisine so that the food factory would be able to serve it. Here Cuisine is the abstract class provided in the locked stub code. 
+3. Cuisine serveCuisine(String cuisineKey, String dish) to serve a dish for the given cuisine. If the requested cuisine is not registered with the food factory, then the exception UnservableCuisineRequestException should be thrown with the message "Unservable cuisine {cuisineKey) for dish {dish)". The implementation of UnservableCuisineRequestException class is provided in the locked stub code. 
+The implementation of UnservableCuisineRequestException class is provided in the locked stub code. The locked stub code in the editor validates the correctness of the FoodFactory class.
+
+//Code: 
+import java.util.Scanner;
+abstract class Cuisine {
+    public abstract Cuisine serveFood(String dish);
+}
+class UnservableCuisineRequestException extends Exception {
+    public UnservableCuisineRequestException(String message) {
+        super(message);
+    }
+}
+
+class Italian extends Cuisine{
+    private String dish;
+    public String getDish() {
+        return dish;
+    }
+    public void setDish(String dish) {
+        this.dish = dish;
+    }
+    @Override
+    public Cuisine serveFood(String dish) {
+        setDish(dish);
+        return this;
+    }
+}
+class Mexican extends Cuisine{
+    private String dish;
+    public String getDish() {
+        return dish;
+    }
+    public void setDish(String dish) {
+        this.dish = dish;
+    }
+    @Override
+    public Cuisine serveFood(String dish) {
+        setDish(dish);
+        return this;
+    }
+}
+class Japanese extends Cuisine{
+    private String dish;
+    public String getDish() {
+        return dish;
+    }
+    public void setDish(String dish) {
+        this.dish = dish;
+    }
+    @Override
+    public Cuisine serveFood(String dish) {
+        setDish(dish);
+        return this;
+    }
+}
+class Chinese extends Cuisine {
+    private String dish;
+    public String getDish() {
+        return dish;
+    }
+    public void setDish(String dish) {
+        this.dish = dish;
+    }
+    @Override
+    public Cuisine serveFood(String dish) {
+        setDish(dish);
+        return this;
+    }
+}
+
+
+class FoodFactory {
+    static FoodFactory getFactory() {
+        if(foodfactory==null)
+        	foodfactory =  new FoodFactory();
+        	return foodfactory;
+    }
+    private static FoodFactory foodfactory=null;
+    java.util.Map<String, Cuisine> cuisines =  new java.util.HashMap<String, Cuisine>();
+
+    void registerCuisine(String cuisineKey, Cuisine cuisine){
+        cuisines.put(cuisineKey, cuisine.serveFood(cuisineKey));
+    }
+    public Cuisine serveCuisine(String cuisine, String dish) throws UnservableCuisineRequestException {
+        if(!cuisines.containsKey(cuisine)){
+            throw new UnservableCuisineRequestException("Unservable cuisine " + cuisine + "for dish "+ dish);
+        }
+        else
+            return cuisines.get(cuisine).serveFood(dish);
+    }
+}
+
+public class Solution {
+    private static final Scanner INPUT_READER = new Scanner(System.in);
+    private static final FoodFactory FOOD_FACTORY = FoodFactory.getFactory();
+    static {
+        FoodFactory.getFactory().registerCuisine("Chinese", new Chinese());
+        FoodFactory.getFactory().registerCuisine("Italian", new Italian());
+        FoodFactory.getFactory().registerCuisine("Japanese", new Japanese());
+        FoodFactory.getFactory().registerCuisine("Mexican", new Mexican());
+    }
+    public static void main(String[] args) {
+        int totalNumberOfOrders = Integer.parseInt(INPUT_READER.nextLine());
+        while (totalNumberOfOrders-- > 0) {
+            String[] food = INPUT_READER.nextLine().split(" ");
+            String cuisine = food[0];
+            String dish = food[1];
+            
+            try {
+                if (FOOD_FACTORY!=null) {
+                    Cuisine servedFood = FOOD_FACTORY.serveCuisine(cuisine, dish);
+                    switch (cuisine) {
+                        case "Chinese":
+                            Chinese chineseDish = (Chinese) servedFood;
+                            System.out.println("Serving " + chineseDish.getDish() + "(Chinese)");
+                            break;
+                        case "Italian":
+                            Italian italianDish = (Italian) servedFood;
+                            System.out.println("Serving " + italianDish.getDish() + "(Italian)");
+                            break;
+                        case "Japanese":
+                            Japanese japaneseDish = (Japanese) servedFood;
+                            System.out.println("Serving " + japaneseDish.getDish() + "(Japanese)");
+                            break;
+                        case "Mexican":
+                            Mexican mexicanDish = (Mexican) servedFood;
+                            System.out.println("Serving " + mexicanDish.getDish() + "(Mexican)");
+                            break;
+                        default:
+                            break;
+                    }
+                }else{
+                    System.out.println("Not equals");
+                }
+            } catch (UnservableCuisineRequestException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }
+}
+
